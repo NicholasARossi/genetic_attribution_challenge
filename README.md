@@ -5,6 +5,9 @@ https://www.drivendata.org/competitions/63/genetic-engineering-attribution/
 ## Discussion
 https://community.drivendata.org/c/genetic-engineering-attribution/36
 
+## Model Performance Tracker
+https://docs.google.com/spreadsheets/d/1U9AG42qBrN4eNr10D4Y3i-MfpjsI2wODUvLjggwaaNc/edit#gid=0
+
 
 ## BLAST Tutorial
 
