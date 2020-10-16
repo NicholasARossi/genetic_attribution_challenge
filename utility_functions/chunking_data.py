@@ -58,7 +58,7 @@ def prep_thicc_data(in_dir='../data/',out_dir='../data/'):
 
 
     num_training_seqs = len(train_dna_seqs)
-    num_chunks = 10
+    num_chunks = 1000
     chunk_size = int(num_training_seqs / num_chunks)
 
     # compute the maxium length for all the samples
@@ -82,4 +82,4 @@ def prep_thicc_data(in_dir='../data/',out_dir='../data/'):
         np.save(file=f,arr=convert_DNA_onehot2D(test_dna_seqs[z * chunk_size:(z + 1) * chunk_size],max_len=max_len)[..., np.newaxis])
 
 if __name__ == '__main__':
-    prep_thicc_data(out_dir='../data')
+    prep_thicc_data(out_dir='../data/')
