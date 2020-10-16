@@ -5,6 +5,13 @@ from DNA_CNN_utils import convert_DNA_onehot2D
 from tqdm import tqdm
 import gzip
 
+import os
+
+if not os.path.exists('../data/training_data'):
+    os.makedirs('../data/training_data')
+
+if not os.path.exists('../data/testing_data'):
+    os.makedirs('../data/testing_data')
 
 upper_dir = '../data/'
 train_values=pd.read_csv(f'{upper_dir}train_values.csv')
@@ -25,10 +32,10 @@ max_len=max([len(x) for x in np.append(test_dna_seqs,train_dna_seqs)])
 
 print('Spliting Training Data ... \n')
 for z in tqdm(range(num_chunks)):
-    f = gzip.GzipFile(f"../data/training_data/values_{z}", "w")
+    f = gzip.GzipFile(f"../data/training_data/values_{z}.npy.gz", "w")
 
     np.save(file=f,arr=convert_DNA_onehot2D(train_dna_seqs[z * chunk_size:(z + 1) * chunk_size],max_len=max_len)[..., np.newaxis])
-    np.save(f"../data/training_data/labels_{z}",y[z*chunk_size:(z+1)*chunk_size])
+    np.save(f"../data/training_data/labels_{z}.npy",y[z*chunk_size:(z+1)*chunk_size])
 
 
 num_testing_seqs = len(test_dna_seqs)
@@ -38,6 +45,6 @@ chunk_size = int(num_testing_seqs / num_chunks)
 print('Spliting Testing Data ... \n')
 
 for z in tqdm(range(num_chunks)):
-    f = gzip.GzipFile(f"../data/testing_data/values_{z}", "w")
+    f = gzip.GzipFile(f"../data/testing_data/values_{z}.npy.gz", "w")
 
     np.save(file=f,arr=convert_DNA_onehot2D(test_dna_seqs[z * chunk_size:(z + 1) * chunk_size],max_len=max_len)[..., np.newaxis])
