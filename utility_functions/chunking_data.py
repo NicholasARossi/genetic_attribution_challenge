@@ -47,18 +47,18 @@ def prep_thicc_data(in_dir='../data/',out_dir='../data/'):
 
     ## computing the maximum length of any of the DNA sequences
     max_len=max([len(x) for x in np.append(test_dna_seqs,train_dna_seqs)])
-
+    padding=48
 
     # save validation set
     print('saving validation data... \n')
     train_dna_seqs, train_dna_seqs_validation, y, y_validation = train_test_split(train_dna_seqs, y, test_size=0.1, random_state=88)
     f = gzip.GzipFile(f"{out_dir}validation_data/values.npy.gz", "w")
-    np.save(file=f,arr=convert_DNA_onehot2D(train_dna_seqs_validation,max_len=max_len)[..., np.newaxis])
+    np.save(file=f,arr=convert_DNA_onehot2D(train_dna_seqs_validation,max_len=max_len,padding=padding)[..., np.newaxis])
     np.save(f"{out_dir}validation_data/labels.npy", y_validation)
 
 
     num_training_seqs = len(train_dna_seqs)
-    num_chunks = 1000
+    num_chunks = 100
     chunk_size = int(num_training_seqs / num_chunks)
 
     # compute the maxium length for all the samples
@@ -67,7 +67,7 @@ def prep_thicc_data(in_dir='../data/',out_dir='../data/'):
     for z in tqdm(range(num_chunks)):
         f = gzip.GzipFile(f"../data/training_data/values_{z}.npy.gz", "w")
 
-        np.save(file=f,arr=convert_DNA_onehot2D(train_dna_seqs[z * chunk_size:(z + 1) * chunk_size],max_len=max_len)[..., np.newaxis])
+        np.save(file=f,arr=convert_DNA_onehot2D(train_dna_seqs[z * chunk_size:(z + 1) * chunk_size],max_len=max_len,padding=padding)[..., np.newaxis])
         np.save(f"{out_dir}training_data/labels_{z}.npy",y[z*chunk_size:(z+1)*chunk_size])
 
 
@@ -79,7 +79,7 @@ def prep_thicc_data(in_dir='../data/',out_dir='../data/'):
     for z in tqdm(range(num_chunks)):
         f = gzip.GzipFile(f"{out_dir}testing_data/values_{z}.npy.gz", "w")
 
-        np.save(file=f,arr=convert_DNA_onehot2D(test_dna_seqs[z * chunk_size:(z + 1) * chunk_size],max_len=max_len)[..., np.newaxis])
+        np.save(file=f,arr=convert_DNA_onehot2D(test_dna_seqs[z * chunk_size:(z + 1) * chunk_size],max_len=max_len,padding=padding)[..., np.newaxis])
 
 if __name__ == '__main__':
     prep_thicc_data(out_dir='../data/')
