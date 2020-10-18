@@ -28,8 +28,7 @@ def prep_thicc_data(in_dir='../data/',out_dir='../data/'):
     y = train_labels[train_labels.columns[1:]]
 
 
-    ## shuffle data to get rid of baises
-    train_values, y = shuffle(train_values, y)
+
 
 
     ##compute class weight
@@ -55,6 +54,8 @@ def prep_thicc_data(in_dir='../data/',out_dir='../data/'):
     f = gzip.GzipFile(f"{out_dir}validation_data/values.npy.gz", "w")
     np.save(file=f,arr=convert_DNA_onehot2D(train_dna_seqs_validation,max_len=max_len,padding=padding)[..., np.newaxis])
     np.save(f"{out_dir}validation_data/labels.npy", y_validation)
+
+
 
 
     num_training_seqs = len(train_dna_seqs)
