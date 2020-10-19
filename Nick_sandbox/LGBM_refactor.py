@@ -111,7 +111,7 @@ class LGBM_processed():
 
 
 
-    def split_test_train(self,frac=0.1):
+    def split_test_train(self,frac=0.0001):
         train_data, val_data= train_test_split(self.train_labels_values_refactored, test_size=frac,
                                                                                       random_state=88)
         return train_data,val_data
