@@ -79,5 +79,6 @@ def convert_DNA_onehot2D(list_of_seqs,DNA=True,rev_comp=True,padding=0,max_len=N
     return list_of_onehot2D_seqs
 
 if __name__ == '__main__':
+
     encoded_DNA=convert_DNA_onehot2D(['AGCT','AGCTA','banana'])
     print(encoded_DNA)
