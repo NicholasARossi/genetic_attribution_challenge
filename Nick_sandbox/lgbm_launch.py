@@ -45,7 +45,7 @@ params = {
 
 model = lgb.train(params,
                   d_train,
-                  num_boost_round=1500,
+                  num_boost_round=10,
                   valid_sets=d_valid,
                   early_stopping_rounds=50)
 
